@@ -11,17 +11,25 @@ class FoodPackage (ABC):
         return f"Empaque: {self.pack()} , Material: {self.material()}"    
     
 class Wrapping(FoodPackage):  
-  #Write your code here
-  pass
+    def pack(self):
+        return "Food Wrap Paper"
+    def material(self):
+        return "Aluminium"
 
 class Bottle(FoodPackage):  
-  #Write your code here
-  pass
+   def pack(self):
+        return "Bottle"
+    def material(self):
+        return "Plastic"
       
 class Glass(FoodPackage):  
-  #Write your code here
-  pass
+   def pack(self):
+        return "Glass"
+    def material(self):
+        return "Cardboard"
 
 class Box(FoodPackage):  
-  #Write your code here
-  pass
+   def pack(self):
+        return "Box"
+    def material(self):
+        return "Cardboard"
