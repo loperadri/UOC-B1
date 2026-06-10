@@ -1,4 +1,4 @@
-#Write your code here
+from abc import ABC, abstractmethod
 
 class FoodPackage (ABC): 
     @abstractmethod
