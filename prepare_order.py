@@ -101,11 +101,73 @@ f.	Agregar productos: Utilizar la instancia la clase 'Order', del paso c y llama
 
 
 """
-#Write your code here
+from products import *
+from orders import *
+from util import *
 from users import *
 
     
 class PrepareOrder:
- #Write your code here
- pass
+ def __init__(self):
+        # Lectura de los CSV
+        df_cashiers = CSVFileManager("data/cashiers.csv").read()
+        df_customers = CSVFileManager("data/customers.csv").read()
+        df_hamburgers = CSVFileManager("data/hamburgers.csv").read()
+        df_sodas = CSVFileManager("data/sodas.csv").read()
+        df_drinks = CSVFileManager("data/drinks.csv").read()
+        df_happymeals = CSVFileManager("data/happyMeal.csv").read()
+
+        # para convertirlo a objetos
+        self.cashiers = CashierConverter().convert(df_cashiers)
+        self.customers = CustomerConverter().convert(df_customers)
+        self.products = ProductConverter().convert(df_hamburgers, df_sodas, df_drinks, df_happymeals)
+  
+  #buscara el cajero por el dni
+  def find_cashier(self):
+    dni = input("Introduce DNI cashier: ")
+    for cashier in self.cashiers:
+        if cashier.dni == dni:
+            print(cashier.describe())
+            return cashier
+    print("Cajero no encontrado")
+
+  #buscara el cliente por dni
+  def find_customer(self):
+      dni = input("Introduce DNI customer: ")
+      for customer in self.customers:
+          if customer.dni == dni:
+              print(customer.describe())
+              return customer
+      print("Cliente no encontrado")
+  
+  def show_products(self):
+      print("Product list:")
+      for product in self.products:
+          print(product.describe())
+  
+  def choose_products(self):
+      selected = []
+      while True:
+          self.show_products()
+          id = input("Introducir id del producto: ")
+          for product in self.products:
+              if product.id == id:
+                  print(product.describe())
+                  selected.append(product)
+                  break
+          another = input("Hay que añadir mas productos?: ")
+          if another.lower() == "no":
+              break
+      return selected
+  
+  def start(self):
+      cashier = self.find_cashier()
+      customer = self.find_customer()
+      order = Order(cashier, customer)
+      selected = self.choose_products()
+      for product in selected:
+          order.add(product)
+      order.show()
+
+PrepareOrder().start()
 
