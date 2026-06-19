@@ -126,7 +126,7 @@ class PrepareOrder:
     def find_cashier(self):
         dni = input("Introduce DNI cashier: ")
         for cashier in self.cashiers:
-            if cashier.dni == dni:
+            if str(cashier.dni) == dni:
                 print(cashier.describe())
                 return cashier
     print("Cajero no encontrado")
@@ -135,7 +135,7 @@ class PrepareOrder:
     def find_customer(self):
         dni = input("Introduce DNI customer: ")
         for customer in self.customers:
-            if customer.dni == dni:
+            if str(customer.dni) == dni:
                 print(customer.describe())
                 return customer
         print("Cliente no encontrado")
